@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sage-green: #8da399;
+  --color-deep-olive: #4e635a;
+  --color-ivory: #fbfaee;
+  --color-soft-cream: #faf9f6;
+  --color-muted-gold: #c5a059;
+  --color-charcoal-soft: #1b1c15;
+  --color-white: #ffffff;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-ivory text-charcoal-soft;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}

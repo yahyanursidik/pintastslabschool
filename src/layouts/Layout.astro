@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/layout/SiteHeader.astro';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import MobileBottomNav from '../components/layout/MobileBottomNav.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { 
+  title, 
+  description = "Akses cepat informasi resmi TS Lab School: SPMB, Preschool, Elementary School, artikel sekolah, sistem informasi, lokasi, dan kontak admin.",
+  image = "/og-image.jpg"
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-ivory text-charcoal-soft font-body antialiased min-h-screen flex flex-col relative pb-20 md:pb-0">
+    <div class="fixed inset-0 z-[-1] bg-gradient-to-b from-ivory via-ivory to-sage-green/20"></div>
+    <SiteHeader />
+    <main class="flex-grow w-full max-w-[720px] mx-auto px-4 sm:px-6">
+      <slot />
+    </main>
+    <SiteFooter />
+    <MobileBottomNav />
+  </body>
+</html>

@@ -1,0 +1,43 @@
+---
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  badge?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
+}
+
+const {
+  title = "Penerimaan Peserta Didik Baru Telah Dibuka",
+  description = "Temukan informasi lengkap jenjang Preschool dan Elementary School, alur pendaftaran, jadwal observasi, biaya pendidikan, dan konsultasi bersama admin sekolah.",
+  badge = "SPMB 2026/2027",
+  ctaLabel = "Lihat Informasi SPMB",
+  ctaUrl = "#spmb"
+} = Astro.props;
+---
+
+<div id="spmb" class="scroll-mt-24 w-full bg-gradient-to-br from-white to-ivory rounded-2xl p-6 md:p-8 shadow-[0_8px_32px_rgba(27,28,21,0.04)] border border-sage-green/10 relative overflow-hidden">
+  <!-- Decorative abstract shape -->
+  <div class="absolute -right-16 -top-16 w-48 h-48 bg-muted-gold/10 rounded-full blur-2xl"></div>
+  
+  <div class="relative z-10 flex flex-col gap-3 items-start">
+    {badge && <div class="bg-muted-gold text-white text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full">{badge}</div>}
+    
+    <div class="flex flex-col gap-1.5 mt-1">
+      <h3 class="text-xl md:text-2xl font-heading font-semibold text-deep-olive leading-tight">{title}</h3>
+      <p class="text-sm font-body text-charcoal-soft/70 leading-relaxed max-w-lg">
+        {description}
+      </p>
+    </div>
+    
+    <!-- Button hidden as per new design -->
+    {ctaLabel && ctaUrl && (
+      <a href={ctaUrl} class="hidden">
+        {ctaLabel}
+      </a>
+    )}
+  </div>
+</div>

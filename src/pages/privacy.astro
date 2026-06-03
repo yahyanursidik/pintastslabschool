@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../components/ui/SectionTitle.astro';
+---
+
+<Layout title="Privacy Policy | TS Lab School" description="Kebijakan Privasi Tarbiyah Sunnah Lab School">
+  <div class="py-12 flex flex-col gap-8 bg-white rounded-3xl p-8 my-8 border border-sage-green/10 shadow-sm">
+    <SectionTitle title="Kebijakan Privasi" align="left" />
+    
+    <div class="prose prose-sage max-w-none text-charcoal-soft/80">
+      <p>Terakhir diperbarui: {new Date().toLocaleDateString('id-ID')}</p>
+      
+      <h3>1. Pendahuluan</h3>
+      <p>Tarbiyah Sunnah Lab School ("kami", "milik kami") menghormati privasi Anda dan berkomitmen untuk melindungi data pribadi Anda.</p>
+      
+      <h3>2. Informasi yang Kami Kumpulkan</h3>
+      <p>Kami dapat mengumpulkan informasi identitas pribadi (Nama, Alamat Email, Nomor Telepon) ketika Anda menghubungi kami melalui formulir kontak atau mendaftar SPMB.</p>
+      
+      <h3>3. Penggunaan Informasi</h3>
+      <p>Informasi yang kami kumpulkan digunakan untuk:</p>
+      <ul>
+        <li>Menyediakan layanan informasi pendidikan.</li>
+        <li>Menghubungi Anda terkait pendaftaran dan pertanyaan.</li>
+        <li>Meningkatkan layanan website kami.</li>
+      </ul>
+      
+      <h3>4. Hubungi Kami</h3>
+      <p>Jika Anda memiliki pertanyaan tentang Kebijakan Privasi ini, silakan hubungi admin kami.</p>
+    </div>
+  </div>
+</Layout>

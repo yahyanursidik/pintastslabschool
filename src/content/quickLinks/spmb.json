@@ -1,0 +1,11 @@
+{
+  "title": "SPMB TS Lab School",
+  "description": "Informasi pendaftaran, jadwal, biaya, dan formulir calon peserta didik.",
+  "url": "#spmb",
+  "icon": "school",
+  "category": "spmb",
+  "badge": "Dibuka",
+  "isActive": true,
+  "isFeatured": true,
+  "sortOrder": 1
+}

@@ -1,0 +1,24 @@
+---
+import SectionTitle from '../ui/SectionTitle.astro';
+import QuickLinkCard from './QuickLinkCard.astro';
+
+interface LinkItem {
+  title: string;
+  description: string;
+  url: string;
+  icon: string;
+  badge?: string;
+}
+
+interface Props {
+  links: LinkItem[];
+}
+
+const { links } = Astro.props;
+---
+
+<section class="flex flex-col gap-3 w-full">
+  {links.map(link => (
+    <QuickLinkCard {...link} />
+  ))}
+</section>

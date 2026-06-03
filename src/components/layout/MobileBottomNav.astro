@@ -1,0 +1,60 @@
+---
+import { Home, UserPlus, BookOpen, Phone } from 'lucide-astro';
+---
+
+<nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-ivory border-t border-sage-green/20 pb-safe shadow-[0_-4px_12px_rgba(79,93,58,0.05)]">
+  <div class="flex items-center justify-around h-16 px-2">
+    <a href="/hub" class="flex flex-col items-center gap-1 p-2 text-charcoal-soft/60 hover:text-deep-olive transition-colors">
+      <Home class="w-5 h-5" />
+      <span class="text-[10px] font-medium">Hub</span>
+    </a>
+    <a href="/#spmb" class="flex flex-col items-center gap-1 p-2 text-charcoal-soft/60 hover:text-deep-olive transition-colors">
+      <UserPlus class="w-5 h-5" />
+      <span class="text-[10px] font-medium">SPMB</span>
+    </a>
+    <a href="/#programs" class="flex flex-col items-center gap-1 p-2 text-charcoal-soft/60 hover:text-deep-olive transition-colors">
+      <BookOpen class="w-5 h-5" />
+      <span class="text-[10px] font-medium">Program</span>
+    </a>
+    <a href="/#contact" class="flex flex-col items-center gap-1 p-2 text-charcoal-soft/60 hover:text-deep-olive transition-colors">
+      <Phone class="w-5 h-5" />
+      <span class="text-[10px] font-medium">Kontak</span>
+    </a>
+  </div>
+</nav>
+
+<style>
+  /* Safe area padding for iOS */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Active state class to be added via JS or Astro current path logic */
+  .active {
+    color: var(--color-deep-olive);
+  }
+</style>
+
+<script>
+  // Simple active state highlighting based on hash or path
+  const updateActiveLink = () => {
+    const hash = window.location.hash || '/hub';
+    const path = window.location.pathname;
+    const links = document.querySelectorAll('nav a');
+    
+    links.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === path || href === `/${hash}` || (path === '/hub' && href === '/hub')) {
+         link.classList.add('text-deep-olive');
+         link.classList.remove('text-charcoal-soft/60');
+      } else {
+         link.classList.remove('text-deep-olive');
+         link.classList.add('text-charcoal-soft/60');
+      }
+    });
+  };
+
+  // Run on load and hash change
+  window.addEventListener('DOMContentLoaded', updateActiveLink);
+  window.addEventListener('hashchange', updateActiveLink);
+</script>

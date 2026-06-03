@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroHub from '../components/hub/HeroHub.astro';
+import FeaturedAnnouncement from '../components/hub/FeaturedAnnouncement.astro';
+import QuickLinksGrid from '../components/hub/QuickLinksGrid.astro';
+import ProgramSection from '../components/hub/ProgramSection.astro';
+import LatestUpdates from '../components/hub/LatestUpdates.astro';
+import ContactSection from '../components/hub/ContactSection.astro';
+import Divider from '../components/ui/Divider.astro';
+import { getCollection } from 'astro:content';
+import siteSettingsFallback from '../content/siteSettings/siteSettings.json';
+
+// Fetch Site Settings directly from JSON for instant reactivity in dev
+let siteSettings = siteSettingsFallback || {
+  schoolName: 'Tarbiyah Sunnah Lab School',
+  description: 'Akses cepat informasi resmi TS Lab School: SPMB, Preschool, Elementary School, artikel sekolah, sistem informasi, lokasi, dan kontak admin.',
+  whatsappUrl: 'https://wa.me/6281234567890',
+  mapsUrl: 'https://maps.app.goo.gl/placeholder',
+  instagramUrl: 'https://instagram.com/tslabschool',
+  email: 'info@tslabschool.sch.id',
+  address: 'Jl. Contoh Alamat No. 123, Bandung, Jawa Barat'
+};
+
+// Fetch Announcements
+let announcementsRaw = await getCollection('announcements');
+let activeAnnouncements = announcementsRaw.map(a => a.data).filter(a => a.isActive);
+let featuredAnnouncement = activeAnnouncements.length > 0 ? activeAnnouncements[0] : {
+  title: 'Penerimaan Peserta Didik Baru Telah Dibuka',
+  description: 'Temukan informasi lengkap jenjang Preschool dan Elementary School, alur pendaftaran, jadwal observasi, biaya pendidikan, dan konsultasi bersama admin sekolah.',
+  badge: 'SPMB 2026/2027',
+  ctaLabel: 'Lihat Informasi SPMB',
+  ctaUrl: '#spmb'
+};
+
+// Fetch Quick Links
+let quickLinksRaw = await getCollection('quickLinks');
+let links = quickLinksRaw.length > 0 
+  ? quickLinksRaw.map(l => l.data).filter(l => l.isActive).sort((a, b) => a.sortOrder - b.sortOrder)
+  : [
+      {
+        title: 'SPMB TS Lab School',
+        description: 'Informasi pendaftaran, jadwal, biaya, dan formulir calon peserta didik.',
+        url: '#spmb',
+        icon: 'school',
+        badge: 'Dibuka',
+      },
+      {
+        title: 'Profil Preschool',
+        description: 'Kenali program pendidikan anak usia dini TS Lab School.',
+        url: '#programs',
+        icon: 'link',
+      },
+      {
+        title: 'Profil Elementary School',
+        description: 'Kenali program sekolah dasar Islam TS Lab School.',
+        url: '#programs',
+        icon: 'link',
+      },
+      {
+        title: 'Hubungi Admin WhatsApp',
+        description: 'Konsultasi dan tanya informasi sekolah melalui admin.',
+        url: siteSettings.whatsappUrl || '#',
+        icon: 'message-circle',
+      }
+    ];
+
+// Fetch Programs
+let programsRaw = await getCollection('programs');
+let programs = programsRaw.length > 0
+  ? programsRaw.map(p => p.data).filter(p => p.isActive).sort((a, b) => a.sortOrder - b.sortOrder)
+  : [
+      {
+        title: 'TS Lab School Preschool',
+        level: 'preschool' as const,
+        description: 'Pendidikan anak usia dini berbasis adab, Islamic Essential Knowledge, stimulasi perkembangan, dan pembelajaran yang hangat sesuai tahap tumbuh anak.',
+        ctaLabel: 'Lihat Preschool',
+        ctaUrl: '#contact'
+      },
+      {
+        title: 'TS Lab School Elementary',
+        level: 'elementary' as const,
+        description: 'Sekolah dasar Islam dengan penguatan Al-Qur’an, adab, Kurikulum Merdeka, literasi, numerasi, Bahasa Arab, Bahasa Inggris, STEAM, dan pembelajaran bermakna.',
+        ctaLabel: 'Lihat Elementary',
+        ctaUrl: '#contact'
+      }
+    ];
+
+// Fetch Updates
+let updatesRaw = await getCollection('updates');
+let updates = updatesRaw.length > 0
+  ? updatesRaw.map(u => ({ ...u.data, slug: u.id })).filter(u => u.isPublished).sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()).slice(0, 3)
+  : [];
+---
+
+<Layout title={`Hub | ${siteSettings.schoolName}`} description={siteSettings.description}>
+  <div class="flex flex-col gap-2 md:gap-4 pb-12 w-full mx-auto max-w-lg">
+    <HeroHub 
+      schoolName={siteSettings.schoolName}
+      tagline={siteSettings.tagline}
+      description={siteSettings.description}
+      logo={siteSettings.logo}
+      primaryCtaLabel={siteSettings.primaryCtaLabel}
+      primaryCtaUrl={siteSettings.primaryCtaUrl}
+      secondaryCtaLabel={siteSettings.secondaryCtaLabel}
+      secondaryCtaUrl={siteSettings.secondaryCtaUrl}
+    />
+    
+    <FeaturedAnnouncement {...featuredAnnouncement} />
+    
+    <Divider />
+    
+    <QuickLinksGrid links={links} />
+    
+    <Divider />
+    
+    <ProgramSection programs={programs} />
+    
+    {updates.length > 0 && (
+      <>
+        <Divider />
+        <LatestUpdates updates={updates} />
+      </>
+    )}
+    
+    <ContactSection 
+      whatsappUrl={siteSettings.whatsappUrl}
+      mapsUrl={siteSettings.mapsUrl}
+      instagramUrl={siteSettings.instagramUrl}
+      email={siteSettings.email}
+      address={siteSettings.address}
+    />
+  </div>
+</Layout>

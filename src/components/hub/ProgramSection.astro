@@ -1,0 +1,28 @@
+---
+import SectionTitle from '../ui/SectionTitle.astro';
+import ProgramCard from './ProgramCard.astro';
+
+interface Program {
+  title: string;
+  level: 'preschool' | 'elementary';
+  description: string;
+  ctaLabel: string;
+  ctaUrl: string;
+}
+
+interface Props {
+  programs: Program[];
+}
+
+const { programs } = Astro.props;
+---
+
+<section id="programs" class="scroll-mt-24 flex flex-col gap-5 py-4 w-full">
+  <SectionTitle title="Program Kami" align="center" />
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
+    {programs.map(program => (
+      <ProgramCard {...program} />
+    ))}
+  </div>
+</section>

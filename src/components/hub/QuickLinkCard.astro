@@ -1,0 +1,57 @@
+---
+import { Link, School, Info, Download, MapPin, MessageCircle, Instagram } from 'lucide-astro';
+import Badge from '../ui/Badge.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  icon: string;
+  badge?: string;
+}
+
+const { title, description, url, icon, badge } = Astro.props;
+
+const isExternal = url.startsWith('http');
+
+// Simple icon map
+const iconMap: Record<string, any> = {
+  'link': Link,
+  'school': School,
+  'info': Info,
+  'download': Download,
+  'map-pin': MapPin,
+  'message-circle': MessageCircle,
+  'instagram': Instagram,
+};
+
+const IconComponent = iconMap[icon] || Link;
+import { ArrowRight } from 'lucide-astro';
+---
+
+<a 
+  href={url}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
+  class="group flex items-center gap-4 px-5 py-4 w-full bg-soft-cream rounded-2xl border border-sage-green/60 shadow-sm hover:shadow-md hover:bg-sage-green hover:border-sage-green transition-all active:scale-[0.98]"
+>
+  <div class="shrink-0 flex items-center justify-center text-charcoal-soft/60 group-hover:text-ivory transition-colors">
+    <IconComponent class="w-[22px] h-[22px]" stroke-width="1.5" />
+  </div>
+  
+  <div class="flex flex-col flex-grow justify-center">
+    <div class="flex items-center gap-2">
+      <h4 class="font-heading font-semibold text-[15px] md:text-base text-charcoal-soft group-hover:text-ivory transition-colors leading-tight">{title}</h4>
+      {badge && <Badge variant="sage">{badge}</Badge>}
+    </div>
+    {description && (
+      <p class="text-[11px] md:text-xs font-body text-charcoal-soft/60 group-hover:text-ivory/80 line-clamp-1 mt-0.5 transition-colors">
+        {description}
+      </p>
+    )}
+  </div>
+
+  <div class="shrink-0 text-charcoal-soft/30 group-hover:text-ivory/80 transition-colors">
+    <ArrowRight class="w-4 h-4" />
+  </div>
+</a>

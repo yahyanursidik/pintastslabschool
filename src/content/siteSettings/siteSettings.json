@@ -1,0 +1,16 @@
+{
+  "schoolName": "Tarbiyah Sunnah Lab School",
+  "shortName": "TS Lab School",
+  "tagline": "Membangun Generasi Berkarakter Rabbani",
+  "description": "Akses cepat informasi resmi TS Lab School: SPMB, profil jenjang, artikel sekolah, sistem informasi, lokasi, dan kontak admin.",
+  "logo": "/src/assets/images/logo.png",
+  "primaryCtaLabel": "Daftar SPMB",
+  "primaryCtaUrl": "#spmb",
+  "secondaryCtaLabel": "Konsultasi Admin",
+  "secondaryCtaUrl": "#contact",
+  "whatsappUrl": "https://wa.me/6281234567890",
+  "instagramUrl": "https://instagram.com/tslabschool",
+  "email": "info@tslabschool.sch.id",
+  "mapsUrl": "https://maps.app.goo.gl/placeholder",
+  "address": "Jl. Contoh Alamat No. 123, Bandung, Jawa Barat"
+}

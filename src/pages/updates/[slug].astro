@@ -1,0 +1,59 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import { Calendar, ArrowLeft } from 'lucide-astro';
+
+export async function getStaticPaths() {
+  const updatesEntries = await getCollection('updates');
+  return updatesEntries.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const formatDate = (dateString: string) => {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
+};
+---
+
+<Layout title={`${entry.data.title} | TS Lab School`} description={entry.data.excerpt}>
+  <article class="py-8 md:py-12 flex flex-col gap-8 max-w-[640px] mx-auto animate-fade-in">
+    <div class="flex items-center">
+      <Button href="/hub#updates" variant="ghost" size="sm" class="pl-0 gap-2">
+        <ArrowLeft class="w-4 h-4" />
+        Kembali ke Hub
+      </Button>
+    </div>
+    
+    <header class="flex flex-col gap-4">
+      <div class="flex items-center gap-3">
+        <Badge variant="sage">{entry.data.category}</Badge>
+        <span class="text-sm text-charcoal-soft/60 flex items-center gap-1">
+          <Calendar class="w-4 h-4" />
+          {formatDate(entry.data.publishedDate)}
+        </span>
+      </div>
+      
+      <h1 class="text-3xl md:text-4xl font-bold text-deep-olive leading-tight">
+        {entry.data.title}
+      </h1>
+      
+      {entry.data.coverImage && (
+        <div class="mt-4 rounded-3xl overflow-hidden aspect-video bg-sage-green/10">
+          <img src={entry.data.coverImage} alt={entry.data.title} class="w-full h-full object-cover" />
+        </div>
+      )}
+    </header>
+    
+    <div class="prose prose-sage max-w-none text-charcoal-soft/90 prose-headings:text-deep-olive prose-a:text-sage-green hover:prose-a:text-deep-olive prose-img:rounded-2xl">
+      <Content />
+    </div>
+  </article>
+</Layout>

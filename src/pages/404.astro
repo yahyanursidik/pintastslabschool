@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<Layout title="404: Halaman Tidak Ditemukan | TS Lab School">
+  <div class="flex flex-col items-center justify-center text-center min-h-[60vh] gap-6 animate-fade-in py-12">
+    <div class="text-[120px] leading-none font-bold text-sage-green/20">
+      404
+    </div>
+    
+    <div class="flex flex-col gap-2">
+      <h1 class="text-3xl font-bold text-deep-olive">
+        Halaman Tidak Ditemukan
+      </h1>
+      <p class="text-charcoal-soft/80 max-w-md mx-auto">
+        Maaf, halaman yang Anda cari tidak tersedia atau telah dipindahkan.
+      </p>
+    </div>
+    
+    <Button href="/hub" class="mt-4">
+      Kembali ke Beranda
+    </Button>
+  </div>
+</Layout>
