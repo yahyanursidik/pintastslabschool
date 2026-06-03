@@ -1,24 +1,24 @@
 ---
-import { Home, UserPlus, BookOpen, Phone } from 'lucide-astro';
+import { Home, ClipboardList, GraduationCap, Newspaper } from 'lucide-astro';
 ---
 
 <nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-ivory border-t border-sage-green/20 pb-safe shadow-[0_-4px_12px_rgba(79,93,58,0.05)]">
-  <div class="flex items-center justify-around h-16 px-2">
-    <a href="/hub" class="flex flex-col items-center gap-1 p-2 text-charcoal-soft/60 hover:text-deep-olive transition-colors">
+  <div class="flex items-center justify-around h-16 px-2 bottom-nav">
+    <a href="/" class="flex flex-col items-center gap-1 p-2 text-charcoal-soft/60 hover:text-deep-olive transition-colors">
       <Home class="w-5 h-5" />
       <span class="text-[10px] font-medium">Hub</span>
     </a>
     <a href="/#spmb" class="flex flex-col items-center gap-1 p-2 text-charcoal-soft/60 hover:text-deep-olive transition-colors">
-      <UserPlus class="w-5 h-5" />
+      <ClipboardList class="w-5 h-5" />
       <span class="text-[10px] font-medium">SPMB</span>
     </a>
     <a href="/#programs" class="flex flex-col items-center gap-1 p-2 text-charcoal-soft/60 hover:text-deep-olive transition-colors">
-      <BookOpen class="w-5 h-5" />
+      <GraduationCap class="w-5 h-5" />
       <span class="text-[10px] font-medium">Program</span>
     </a>
-    <a href="/#contact" class="flex flex-col items-center gap-1 p-2 text-charcoal-soft/60 hover:text-deep-olive transition-colors">
-      <Phone class="w-5 h-5" />
-      <span class="text-[10px] font-medium">Kontak</span>
+    <a href="/#updates" class="flex flex-col items-center gap-1 p-2 text-charcoal-soft/60 hover:text-deep-olive transition-colors">
+      <Newspaper class="w-5 h-5" />
+      <span class="text-[10px] font-medium">Update</span>
     </a>
   </div>
 </nav>
@@ -36,15 +36,20 @@ import { Home, UserPlus, BookOpen, Phone } from 'lucide-astro';
 </style>
 
 <script>
-  // Simple active state highlighting based on hash or path
-  const updateActiveLink = () => {
-    const hash = window.location.hash || '/hub';
+  // Simple active state toggle based on hash or path
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('.bottom-nav a');
+  
+  function updateActiveLink() {
+    const hash = window.location.hash || '/';
     const path = window.location.pathname;
-    const links = document.querySelectorAll('nav a');
     
-    links.forEach(link => {
+    navLinks.forEach(link => {
       const href = link.getAttribute('href');
-      if (href === path || href === `/${hash}` || (path === '/hub' && href === '/hub')) {
+      link.classList.remove('text-sage-green', 'text-deep-olive');
+      link.classList.add('text-charcoal-soft/60');
+      
+      if (href === path || href === `/${hash}` || (path === '/' && href === '/')) {
          link.classList.add('text-deep-olive');
          link.classList.remove('text-charcoal-soft/60');
       } else {
