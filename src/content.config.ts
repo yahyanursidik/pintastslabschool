@@ -50,9 +50,9 @@ const announcementsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    badge: z.string(),
-    ctaLabel: z.string(),
-    ctaUrl: z.string(),
+    badge: z.string().optional(),
+    ctaLabel: z.string().optional(),
+    ctaUrl: z.string().optional(),
     isActive: z.boolean().default(true),
     startDate: z.string().optional().nullable(),
     endDate: z.string().optional().nullable(),
@@ -65,8 +65,8 @@ const programsCollection = defineCollection({
     title: z.string(),
     level: z.enum(['preschool', 'elementary']),
     description: z.string(),
-    ctaLabel: z.string(),
-    ctaUrl: z.string(),
+    ctaLabel: z.string().optional(),
+    ctaUrl: z.string().optional(),
     sortOrder: z.number().default(0),
     isActive: z.boolean().default(true),
   })
