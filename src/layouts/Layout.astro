@@ -3,17 +3,20 @@ import '../styles/global.css';
 import SiteHeader from '../components/layout/SiteHeader.astro';
 import SiteFooter from '../components/layout/SiteFooter.astro';
 import MobileBottomNav from '../components/layout/MobileBottomNav.astro';
+import siteSettingsFallback from '../content/siteSettings/siteSettings.json';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
+  favicon?: string;
 }
 
 const { 
   title, 
-  description = "Akses cepat informasi resmi TS Lab School: SPMB, Preschool, Elementary School, artikel sekolah, sistem informasi, lokasi, dan kontak admin.",
-  image = "/og-image.jpg"
+  description = siteSettingsFallback?.description || "Akses cepat informasi resmi TS Lab School: SPMB, Preschool, Elementary School, artikel sekolah, sistem informasi, lokasi, dan kontak admin.",
+  image = "/og-image.jpg",
+  favicon = (siteSettingsFallback as any)?.favicon || "/favicon.svg"
 } = Astro.props;
 ---
 
@@ -23,7 +26,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href={favicon} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     

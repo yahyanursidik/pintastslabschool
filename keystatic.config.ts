@@ -15,6 +15,7 @@ export default config({
         tagline: fields.text({ label: 'Tagline' }),
         description: fields.text({ label: 'Description', multiline: true }),
         logo: fields.image({ label: 'Logo', directory: 'src/assets/images', publicPath: '/src/assets/images' }),
+        favicon: fields.image({ label: 'Favicon', directory: 'public', publicPath: '/' }),
         primaryCtaLabel: fields.text({ label: 'Primary CTA Label' }),
         primaryCtaUrl: fields.url({ label: 'Primary CTA URL' }),
         secondaryCtaLabel: fields.text({ label: 'Secondary CTA Label' }),
