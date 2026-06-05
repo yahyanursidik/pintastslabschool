@@ -3,7 +3,7 @@
   "shortName": "TS Lab School",
   "tagline": "Membangun Generasi Berkarakter Rabbani",
   "description": "Akses cepat informasi resmi TS Lab School: SPMB, profil jenjang, artikel sekolah, sistem informasi, lokasi, dan kontak admin.",
-  "logo": "/src/assets/images/logo.png",
+  "logo": "/images/logo.png",
   "favicon": "/favicon.png",
   "primaryCtaLabel": "Daftar SPMB",
   "primaryCtaUrl": "#spmb",
