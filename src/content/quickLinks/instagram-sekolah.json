@@ -1,0 +1,10 @@
+{
+  "title": "Instagram Sekolah",
+  "description": "Informasi di instagram",
+  "url": "https://www.instagram.com/tslabschool/",
+  "icon": "instagram",
+  "category": "information",
+  "isActive": true,
+  "isFeatured": false,
+  "sortOrder": 5
+}

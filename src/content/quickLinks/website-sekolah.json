@@ -1,0 +1,10 @@
+{
+  "title": "Website Sekolah",
+  "description": "Informasi lainnya di website resmi",
+  "url": "https://tslabschool.sch.id/",
+  "icon": "info",
+  "category": "information",
+  "isActive": true,
+  "isFeatured": false,
+  "sortOrder": 6
+}
