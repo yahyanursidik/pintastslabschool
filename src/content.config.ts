@@ -34,7 +34,7 @@ const quickLinksCollection = defineCollection({
   loader: glob({ pattern: '**/*.json', base: "./src/content/quickLinks" }),
   schema: z.object({
     title: z.string(),
-    description: z.string(),
+    description: z.string().optional(),
     url: z.string(),
     icon: z.string(),
     category: z.string(),

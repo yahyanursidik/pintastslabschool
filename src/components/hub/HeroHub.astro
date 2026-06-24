@@ -1,5 +1,7 @@
 ---
 import Button from '../ui/Button.astro';
+import Decorations from '../ui/Decorations.astro';
+
 
 interface Props {
   schoolName?: string;
@@ -25,6 +27,7 @@ const {
 ---
 
 <section class="relative pt-12 pb-4 md:pt-16 md:pb-8 text-center flex flex-col items-center">
+  <Decorations />
   <div class="absolute inset-0 -z-10 overflow-hidden rounded-3xl pointer-events-none">
     <div class="absolute -top-10 -left-10 w-40 h-40 bg-sage-green/10 rounded-full blur-3xl opacity-60"></div>
     <div class="absolute top-20 -right-10 w-48 h-48 bg-muted-gold/10 rounded-full blur-3xl opacity-60"></div>

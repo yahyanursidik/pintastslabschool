@@ -11,21 +11,21 @@ const { whatsappUrl, mapsUrl, instagramUrl } = Astro.props;
 ---
 
 <section id="contact" class="scroll-mt-24 grid grid-cols-3 gap-3 w-full py-4 mt-2">
-  <a href={whatsappUrl} class="group flex flex-col items-center justify-center gap-2 p-4 bg-soft-cream rounded-2xl border border-sage-green/60 shadow-sm hover:shadow-md hover:bg-sage-green transition-all active:scale-[0.98]">
+  <a href={whatsappUrl} class="group flex flex-col items-center justify-center gap-2 p-4 bg-soft-cream rounded-2xl border border-sage-green/60 shadow-sm hover:shadow-md hover:-translate-y-1 hover:bg-sage-green transition-all duration-300 active:scale-[0.98]">
     <div class="text-charcoal-soft/60 group-hover:text-ivory transition-colors">
       <MessageCircle class="w-6 h-6" stroke-width="1.5" />
     </div>
     <span class="text-[10px] sm:text-xs font-body font-semibold text-charcoal-soft group-hover:text-ivory transition-colors">WhatsApp</span>
   </a>
 
-  <a href={mapsUrl} class="group flex flex-col items-center justify-center gap-2 p-4 bg-soft-cream rounded-2xl border border-sage-green/60 shadow-sm hover:shadow-md hover:bg-sage-green transition-all active:scale-[0.98]">
+  <a href={mapsUrl} class="group flex flex-col items-center justify-center gap-2 p-4 bg-soft-cream rounded-2xl border border-sage-green/60 shadow-sm hover:shadow-md hover:-translate-y-1 hover:bg-sage-green transition-all duration-300 active:scale-[0.98]">
     <div class="text-charcoal-soft/60 group-hover:text-ivory transition-colors">
       <MapPin class="w-6 h-6" stroke-width="1.5" />
     </div>
     <span class="text-[10px] sm:text-xs font-body font-semibold text-charcoal-soft group-hover:text-ivory transition-colors">Lokasi</span>
   </a>
 
-  <a href={instagramUrl} class="group flex flex-col items-center justify-center gap-2 p-4 bg-soft-cream rounded-2xl border border-sage-green/60 shadow-sm hover:shadow-md hover:bg-sage-green transition-all active:scale-[0.98]">
+  <a href={instagramUrl} class="group flex flex-col items-center justify-center gap-2 p-4 bg-soft-cream rounded-2xl border border-sage-green/60 shadow-sm hover:shadow-md hover:-translate-y-1 hover:bg-sage-green transition-all duration-300 active:scale-[0.98]">
     <div class="text-charcoal-soft/60 group-hover:text-ivory transition-colors">
       <Instagram class="w-6 h-6" stroke-width="1.5" />
     </div>

@@ -13,8 +13,22 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-ivory text-charcoal-soft;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes float-up-down {
+    0%, 100% { transform: translateY(-8px); }
+    50% { transform: translateY(8px); }
   }
 }

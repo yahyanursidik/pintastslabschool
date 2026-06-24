@@ -3,8 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import HeroHub from '../components/hub/HeroHub.astro';
 import FeaturedAnnouncement from '../components/hub/FeaturedAnnouncement.astro';
 import QuickLinksGrid from '../components/hub/QuickLinksGrid.astro';
-import ProgramSection from '../components/hub/ProgramSection.astro';
-import LatestUpdates from '../components/hub/LatestUpdates.astro';
 import ContactSection from '../components/hub/ContactSection.astro';
 import Divider from '../components/ui/Divider.astro';
 import { getCollection } from 'astro:content';
@@ -64,32 +62,6 @@ let links = quickLinksRaw.length > 0
       }
     ];
 
-// Fetch Programs
-let programsRaw = await getCollection('programs');
-let programs = programsRaw.length > 0
-  ? programsRaw.map(p => p.data).filter(p => p.isActive).sort((a, b) => a.sortOrder - b.sortOrder)
-  : [
-      {
-        title: 'TS Lab School Preschool',
-        level: 'preschool' as const,
-        description: 'Pendidikan anak usia dini berbasis adab, Islamic Essential Knowledge, stimulasi perkembangan, dan pembelajaran yang hangat sesuai tahap tumbuh anak.',
-        ctaLabel: 'Lihat Preschool',
-        ctaUrl: '#contact'
-      },
-      {
-        title: 'TS Lab School Elementary',
-        level: 'elementary' as const,
-        description: 'Sekolah dasar Islam dengan penguatan Al-Qur’an, adab, Kurikulum Merdeka, literasi, numerasi, Bahasa Arab, Bahasa Inggris, STEAM, dan pembelajaran bermakna.',
-        ctaLabel: 'Lihat Elementary',
-        ctaUrl: '#contact'
-      }
-    ];
-
-// Fetch Updates
-let updatesRaw = await getCollection('updates');
-let updates = updatesRaw.length > 0
-  ? updatesRaw.map(u => ({ ...u.data, slug: u.id })).filter(u => u.isPublished).sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()).slice(0, 3)
-  : [];
 ---
 
 <Layout title={`Hub | ${siteSettings.schoolName}`} description={siteSettings.description} favicon={siteSettings.favicon}>
@@ -110,17 +82,6 @@ let updates = updatesRaw.length > 0
     <Divider />
     
     <QuickLinksGrid links={links} />
-    
-    <Divider />
-    
-    <ProgramSection programs={programs} />
-    
-    {updates.length > 0 && (
-      <>
-        <Divider />
-        <LatestUpdates updates={updates} />
-      </>
-    )}
     
     <ContactSection 
       whatsappUrl={siteSettings.whatsappUrl}
