@@ -1,8 +1,6 @@
 ---
 import '../styles/global.css';
-import SiteHeader from '../components/layout/SiteHeader.astro';
 import SiteFooter from '../components/layout/SiteFooter.astro';
-import MobileBottomNav from '../components/layout/MobileBottomNav.astro';
 import siteSettingsFallback from '../content/siteSettings/siteSettings.json';
 
 interface Props {
@@ -43,11 +41,9 @@ const {
   </head>
   <body class="bg-ivory text-charcoal-soft font-body antialiased min-h-screen flex flex-col relative pb-20 md:pb-0">
     <div class="fixed inset-0 z-[-1] bg-gradient-to-b from-ivory via-ivory to-sage-green/20"></div>
-    <SiteHeader />
     <main class="flex-grow w-full max-w-[720px] mx-auto px-4 sm:px-6">
       <slot />
     </main>
     <SiteFooter />
-    <MobileBottomNav />
   </body>
 </html>
