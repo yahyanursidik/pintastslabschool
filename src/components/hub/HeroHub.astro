@@ -54,6 +54,14 @@ const {
       <p class="text-xs md:text-sm font-body text-charcoal-soft/60 mt-0.5">
         {tagline}
       </p>
+      <p
+        class="spmb-theme mt-2 font-serif text-2xl font-bold leading-none tracking-[0.08em] sm:text-4xl md:mt-3 md:text-5xl"
+        aria-label="MOVE. LEARN. GROW."
+      >
+        <span class="theme-word text-deep-olive">MOVE.</span>
+        <span class="theme-word text-muted-gold"> LEARN.</span>
+        <span class="theme-word text-[#f47b20]"> GROW.</span>
+      </p>
     </div>
 
     <!-- Hidden visual description for SEO, as we don't display it in the new mockup -->
@@ -73,3 +81,36 @@ const {
     </div>
   </div>
 </section>
+
+<style>
+  .theme-word {
+    display: inline-block;
+    animation: theme-word-enter 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .theme-word:nth-child(2) {
+    animation-delay: 140ms;
+  }
+
+  .theme-word:nth-child(3) {
+    animation-delay: 280ms;
+  }
+
+  @keyframes theme-word-enter {
+    from {
+      opacity: 0;
+      transform: translateY(0.45em) scale(0.94);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-word {
+      animation: none;
+    }
+  }
+</style>
