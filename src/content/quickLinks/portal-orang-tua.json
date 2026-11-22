@@ -1,9 +1,9 @@
 {
-  "title": "Portal Khusus Orang Tua Murid",
+  "title": "Portal orang tua",
   "url": "https://hub.tslabschool.sch.id/portal/login",
   "icon": "school",
   "category": "information",
   "isActive": true,
-  "isFeatured": false,
+  "isFeatured": true,
   "sortOrder": 7
 }

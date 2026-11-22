@@ -1,24 +1,21 @@
 ---
-import SectionTitle from '../ui/SectionTitle.astro';
+import type { Shortcut } from '../../lib/shortcuts';
 import QuickLinkCard from './QuickLinkCard.astro';
 
-interface LinkItem {
-  title: string;
-  description?: string;
-  url: string;
-  icon: string;
-  badge?: string;
-}
-
 interface Props {
-  links: LinkItem[];
+  id: string;
+  title: string;
+  links: Shortcut[];
+  priority?: boolean;
 }
 
-const { links } = Astro.props;
+const { id, title, links, priority = false } = Astro.props;
+const headingId = id + '-title';
 ---
 
-<section class="flex flex-col gap-3 w-full">
-  {links.map(link => (
-    <QuickLinkCard {...link} />
-  ))}
+<section class:list={['shortcut-group', { 'shortcut-group--priority': priority }]} id={id} aria-labelledby={headingId}>
+  <h2 id={headingId}>{title}</h2>
+  <ul class="shortcut-list" role="list">
+    {links.map((link) => <QuickLinkCard {...link} />)}
+  </ul>
 </section>

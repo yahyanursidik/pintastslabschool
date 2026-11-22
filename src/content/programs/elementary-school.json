@@ -1,7 +1,10 @@
 {
   "title": "Elementary School",
   "level": "elementary",
-  "description": "Membangun fondasi akademik yang kokoh dengan integrasi nilai-nilai keislaman yang mendalam. Siswa diajak untuk berpikir kritis, berakhlak mulia, dan memiliki kedisiplinan tinggi dalam menuntut ilmu syar'i maupun umum.",
-  "sortOrder": 2,
+  "context": "Usia 6–12 tahun · Tatap muka di Bandung",
+  "description": "Murid belajar Al-Qur’an, literasi, dan sains. Mereka berlatih bertanya dalam majelis dan menguji gagasan lewat kegiatan nyata.",
+  "ctaLabel": "Lihat Elementary School",
+  "ctaUrl": "https://tslabschool.sch.id/program/elementary/",
+  "sortOrder": 3,
   "isActive": true
 }

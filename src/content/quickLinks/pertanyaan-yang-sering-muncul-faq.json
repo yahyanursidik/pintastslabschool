@@ -1,11 +1,10 @@
 {
-  "title": "Pertanyaan yang sering muncul (FAQ)",
-  "description": "pertanyaan-pertanyaan yang sering muncul dan ditanyakan ke sekolah",
+  "title": "Pertanyaan umum (FAQ)",
   "url": "https://tslabschool.sch.id/faq",
   "icon": "info",
   "category": "information",
   "badge": "FAQ",
   "isActive": true,
-  "isFeatured": false,
+  "isFeatured": true,
   "sortOrder": 6
 }
