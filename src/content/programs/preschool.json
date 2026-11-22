@@ -1,9 +1,10 @@
 {
-  "title": "TS Lab School Preschool",
+  "title": "Preschool Reguler",
   "level": "preschool",
-  "description": "Pendidikan anak usia dini berbasis adab, Islamic Essential Knowledge, stimulasi perkembangan, dan pembelajaran yang hangat sesuai tahap tumbuh anak.",
-  "ctaLabel": "Lihat Preschool",
-  "ctaUrl": "#contact",
+  "context": "Usia 3–6 tahun · Tatap muka di Bandung",
+  "description": "Ananda bermain dengan bahan alam, melatih keterampilan motorik, dan membiasakan adab bersama guru.",
+  "ctaLabel": "Lihat Preschool Reguler",
+  "ctaUrl": "https://tslabschool.sch.id/program/preschool-reguler/",
   "sortOrder": 1,
   "isActive": true
 }

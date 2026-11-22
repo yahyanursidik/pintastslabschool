@@ -1,9 +1,9 @@
 {
-  "title": "Biaya",
+  "title": "Rincian biaya pendidikan",
   "url": "https://drive.google.com/drive/folders/1jjljrWYQMWg7-dHu21CI5KT2Gv2rWWxD?usp=sharing",
   "icon": "info",
-  "category": "information",
+  "category": "download",
   "isActive": true,
-  "isFeatured": false,
+  "isFeatured": true,
   "sortOrder": 5
 }

@@ -1,8 +1,8 @@
 {
-  "title": "Channel Telegram Sekolah",
-  "url": "t.me/tslabschool",
+  "title": "Kanal Telegram sekolah",
+  "url": "https://t.me/tslabschool",
   "icon": "info",
-  "category": "information",
+  "category": "social",
   "isActive": true,
   "isFeatured": false,
   "sortOrder": 8

@@ -1,116 +1,23 @@
 ---
-import Button from '../ui/Button.astro';
-import Decorations from '../ui/Decorations.astro';
-
-
 interface Props {
-  schoolName?: string;
-  tagline?: string;
-  description?: string;
+  schoolName: string;
   logo?: string;
-  primaryCtaLabel?: string;
-  primaryCtaUrl?: string;
-  secondaryCtaLabel?: string;
-  secondaryCtaUrl?: string;
 }
 
-const {
-  schoolName = "Tarbiyah Sunnah Lab School",
-  tagline = "Membangun Generasi Berkarakter Rabbani",
-  description = "Akses cepat informasi resmi TS Lab School: SPMB, profil jenjang, artikel sekolah, sistem informasi, lokasi, dan kontak admin.",
-  logo,
-  primaryCtaLabel = "Daftar SPMB",
-  primaryCtaUrl = "#spmb",
-  secondaryCtaLabel = "Konsultasi School Center",
-  secondaryCtaUrl = "https://wa.me/6285173396002"
-} = Astro.props;
+const { schoolName, logo } = Astro.props;
+const originalLogo = logo === '/images/logo.png';
 ---
 
-<section class="relative pt-12 pb-4 md:pt-16 md:pb-8 text-center flex flex-col items-center">
-  <Decorations />
-  <div class="absolute inset-0 -z-10 overflow-hidden rounded-3xl pointer-events-none">
-    <div class="absolute -top-10 -left-10 w-40 h-40 bg-sage-green/10 rounded-full blur-3xl opacity-60"></div>
-    <div class="absolute top-20 -right-10 w-48 h-48 bg-muted-gold/10 rounded-full blur-3xl opacity-60"></div>
+<div class="hub-identity">
+  {logo && (
+    <span class="school-stamp">
+      <span class:list={['school-mark', { 'school-mark--original': originalLogo }]}>
+        <img src={logo} width={originalLogo ? 1080 : 256} height={originalLogo ? 1350 : 256} alt="" />
+      </span>
+    </span>
+  )}
+  <div>
+    <p class="hub-kicker">Pintas · Tautan resmi</p>
+    <h1>{schoolName}</h1>
   </div>
-
-  <div class="flex flex-col items-center gap-4">
-    {logo ? (
-      <div class="w-24 h-24 md:w-28 md:h-28 rounded-full bg-white shadow-md border-[3px] border-white ring-2 ring-sage-green/30 flex items-center justify-center overflow-hidden mb-4 relative">
-        <img src={logo} alt={schoolName} class="w-full h-full object-cover object-center absolute inset-0" />
-      </div>
-    ) : (
-      <div class="w-24 h-24 md:w-28 md:h-28 rounded-full bg-white shadow-md border-[3px] border-white ring-2 ring-sage-green/30 flex items-center justify-center text-3xl md:text-4xl font-bold text-deep-olive mb-4 relative">
-        TS
-      </div>
-    )}
-    
-    <div class="flex flex-col gap-1.5 items-center">
-      <h1 class="text-2xl md:text-3xl font-heading font-semibold text-deep-olive tracking-tight">
-        {schoolName}
-      </h1>
-      <p class="text-sm md:text-base font-body font-medium text-charcoal-soft/80">
-        Preschool & Elementary School
-      </p>
-      <p class="text-xs md:text-sm font-body text-charcoal-soft/60 mt-0.5">
-        {tagline}
-      </p>
-      <p
-        class="spmb-theme mt-2 font-serif text-2xl font-bold leading-none tracking-[0.08em] sm:text-4xl md:mt-3 md:text-5xl"
-        aria-label="MOVE. LEARN. GROW."
-      >
-        <span class="theme-word text-deep-olive">MOVE.</span>
-        <span class="theme-word text-muted-gold"> LEARN.</span>
-        <span class="theme-word text-[#f47b20]"> GROW.</span>
-      </p>
-    </div>
-
-    <!-- Hidden visual description for SEO, as we don't display it in the new mockup -->
-    <p class="sr-only">
-      {description}
-    </p>
-
-    <div class="flex flex-row items-center justify-center gap-3 mt-4">
-      <Button href={primaryCtaUrl} size="sm" class="rounded-full shadow-none gap-2 px-5 transition-transform hover:scale-105 active:scale-95">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-list"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
-        {primaryCtaLabel}
-      </Button>
-      <Button href={secondaryCtaUrl} variant="outline" size="sm" class="rounded-full gap-2 px-5 bg-transparent border-charcoal-soft/20 text-charcoal-soft/80 hover:bg-white/50 transition-transform hover:scale-105 active:scale-95">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-        {secondaryCtaLabel}
-      </Button>
-    </div>
-  </div>
-</section>
-
-<style>
-  .theme-word {
-    display: inline-block;
-    animation: theme-word-enter 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .theme-word:nth-child(2) {
-    animation-delay: 140ms;
-  }
-
-  .theme-word:nth-child(3) {
-    animation-delay: 280ms;
-  }
-
-  @keyframes theme-word-enter {
-    from {
-      opacity: 0;
-      transform: translateY(0.45em) scale(0.94);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .theme-word {
-      animation: none;
-    }
-  }
-</style>
+</div>

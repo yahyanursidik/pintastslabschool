@@ -1,94 +1,126 @@
 ---
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import HeroHub from '../components/hub/HeroHub.astro';
 import FeaturedAnnouncement from '../components/hub/FeaturedAnnouncement.astro';
 import QuickLinksGrid from '../components/hub/QuickLinksGrid.astro';
-import ContactSection from '../components/hub/ContactSection.astro';
-import Divider from '../components/ui/Divider.astro';
-import { getCollection } from 'astro:content';
-import siteSettingsFallback from '../content/siteSettings/siteSettings.json';
+import artwork from '../assets/images/alat-permainan-edukatif.webp';
+import { formatSchoolDate } from '../lib/dates';
+import { uniqueShortcuts } from '../lib/shortcuts';
+import settings from '../content/siteSettings/siteSettings.json';
 
-// Fetch Site Settings directly from JSON for instant reactivity in dev
-let siteSettings = siteSettingsFallback || {
-  schoolName: 'Tarbiyah Sunnah Lab School',
-  description: 'Akses cepat informasi resmi TS Lab School: SPMB, Preschool, Elementary School, artikel sekolah, sistem informasi, lokasi, dan kontak admin.',
-  whatsappUrl: 'https://wa.me/6285173396002',
-  mapsUrl: 'https://maps.app.goo.gl/J3C27TA63m1KrGBd7',
-  instagramUrl: 'https://instagram.com/tslabschool',
-  email: 'info@tslabschool.sch.id',
-  address: 'Jl. Contoh Alamat No. 123, Bandung, Jawa Barat'
-};
+const today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Jakarta' }).format();
+const [links, announcements, programs, updates] = await Promise.all([
+  getCollection('quickLinks', ({ data }) => data.isActive && Boolean(data.url) && data.url !== '#'),
+  getCollection('announcements', ({ data }) => (
+    data.isActive &&
+    (!data.startDate || data.startDate.slice(0, 10) <= today) &&
+    (!data.endDate || data.endDate.slice(0, 10) >= today)
+  )),
+  getCollection('programs', ({ data }) => data.isActive),
+  getCollection('updates', ({ data }) => data.isPublished),
+]);
 
-// Fetch Announcements
-let announcementsRaw = await getCollection('announcements');
-let activeAnnouncements = announcementsRaw.map(a => a.data).filter(a => a.isActive);
-let featuredAnnouncement = activeAnnouncements.length > 0 ? activeAnnouncements[0] : {
-  title: 'Penerimaan Peserta Didik Baru Telah Dibuka',
-  description: 'Temukan informasi lengkap jenjang Preschool dan Elementary School, alur pendaftaran, jadwal observasi, biaya pendidikan, dan konsultasi bersama admin sekolah.',
-  badge: 'SPMB 2026/2027',
-  ctaLabel: 'Lihat Informasi SPMB',
-  ctaUrl: '#spmb'
-};
+links.sort((a, b) => a.data.sortOrder - b.data.sortOrder || a.id.localeCompare(b.id));
+announcements.sort((a, b) => (b.data.startDate ?? '').localeCompare(a.data.startDate ?? ''));
+programs.sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+updates.sort((a, b) => b.data.publishedDate.localeCompare(a.data.publishedDate));
 
-// Fetch Quick Links
-let quickLinksRaw = await getCollection('quickLinks');
-let links = quickLinksRaw.length > 0 
-  ? quickLinksRaw.map(l => l.data).filter(l => l.isActive).sort((a, b) => a.sortOrder - b.sortOrder)
-  : [
-      {
-        title: 'SPMB TS Lab School',
-        description: 'Informasi pendaftaran, jadwal, biaya, dan formulir calon peserta didik.',
-        url: '#spmb',
-        icon: 'school',
-        badge: 'Dibuka',
-      },
-      {
-        title: 'Profil Preschool',
-        description: 'Kenali program pendidikan anak usia dini TS Lab School.',
-        url: '#programs',
-        icon: 'link',
-      },
-      {
-        title: 'Profil Elementary School',
-        description: 'Kenali program sekolah dasar Islam TS Lab School.',
-        url: '#programs',
-        icon: 'link',
-      },
-      {
-        title: 'Hubungi Admin WhatsApp',
-        description: 'Konsultasi dan tanya informasi sekolah melalui admin.',
-        url: siteSettings.whatsappUrl || '#',
-        icon: 'message-circle',
-      }
-    ];
+const admissions = links.filter(({ data }) => data.category === 'spmb');
+const nonAdmissions = links.filter(({ data }) => data.category !== 'spmb').map(({ data }) => data);
+const pinned = nonAdmissions.filter((link) => link.isFeatured);
+const directory = nonAdmissions.filter((link) => !link.isFeatured);
 
+const programLinks = programs.flatMap(({ data }) => data.ctaUrl
+  ? [{ title: data.ctaLabel || data.title, url: data.ctaUrl }]
+  : []
+);
+const groups = [
+  {
+    id: 'programs',
+    title: 'Profil dan program',
+    jump: 'Profil',
+    links: uniqueShortcuts([
+      ...directory.filter(({ category }) => category === 'download'),
+      ...programLinks,
+      { id: 'cara-belajar', title: 'Cara belajar di ' + settings.shortName, url: 'https://tslabschool.sch.id/pendekatan/' },
+    ]),
+  },
+  {
+    id: 'layanan',
+    title: 'Layanan dan informasi',
+    jump: 'Layanan',
+    links: directory.filter(({ category }) => !['download', 'social', 'contact'].includes(category)),
+  },
+  {
+    id: 'kanal',
+    title: 'Kanal sekolah',
+    jump: 'Kanal',
+    links: uniqueShortcuts([
+      ...directory.filter(({ category }) => category === 'social'),
+      { title: 'Instagram sekolah', url: settings.instagramUrl },
+    ]),
+  },
+  {
+    id: 'updates',
+    title: 'Kabar sekolah',
+    links: updates.map(({ id, data }) => ({
+      title: data.title,
+      url: '/updates/' + id,
+      description: formatSchoolDate(data.publishedDate),
+    })),
+  },
+  {
+    id: 'contact',
+    title: 'Kontak dan lokasi',
+    jump: 'Kontak',
+    links: uniqueShortcuts([
+      { title: 'WhatsApp School Center', url: settings.whatsappUrl },
+      { title: 'Lokasi sekolah', url: settings.mapsUrl, description: settings.address },
+      ...(settings.email ? [{ title: settings.email, url: 'mailto:' + settings.email }] : []),
+      ...(settings.secondaryCtaLabel && settings.secondaryCtaUrl !== '#contact'
+        ? [{ title: settings.secondaryCtaLabel, url: settings.secondaryCtaUrl }]
+        : []),
+      ...directory.filter(({ category }) => category === 'contact'),
+    ]),
+  },
+].filter(({ links }) => links.length > 0);
+
+const socialImage = await getImage({
+  src: artwork,
+  format: 'jpg',
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  quality: 80,
+});
 ---
 
-<Layout title={`Hub | ${siteSettings.schoolName}`} description={siteSettings.description} favicon={siteSettings.favicon}>
-  <div class="flex flex-col gap-2 md:gap-4 pb-12 w-full mx-auto max-w-lg">
-    <HeroHub 
-      schoolName={siteSettings.schoolName}
-      tagline={siteSettings.tagline}
-      description={siteSettings.description}
-      logo={siteSettings.logo}
-      primaryCtaLabel={siteSettings.primaryCtaLabel}
-      primaryCtaUrl={siteSettings.primaryCtaUrl}
-      secondaryCtaLabel={siteSettings.secondaryCtaLabel}
-      secondaryCtaUrl={siteSettings.secondaryCtaUrl}
+<Layout title={'Pintas | ' + settings.schoolName} image={socialImage.src}>
+  <div class="shell hub" id="tautan">
+    <FeaturedAnnouncement
+      announcements={announcements}
+      portals={admissions}
+      image={artwork}
+      primaryCtaLabel={settings.primaryCtaLabel}
+      primaryCtaUrl={settings.primaryCtaUrl}
+      whatsappUrl={settings.whatsappUrl}
     />
-    
-    <FeaturedAnnouncement {...featuredAnnouncement} />
-    
-    <Divider />
-    
-    <QuickLinksGrid links={links} />
-    
-    <ContactSection 
-      whatsappUrl={siteSettings.whatsappUrl}
-      mapsUrl={siteSettings.mapsUrl}
-      instagramUrl={siteSettings.instagramUrl}
-      email={siteSettings.email}
-      address={siteSettings.address}
-    />
+
+    {pinned.length > 0 && (
+      <QuickLinksGrid id="akses-cepat" title="Akses cepat" links={pinned} priority />
+    )}
+
+    <nav class="hub-jump" aria-label="Kelompok tautan">
+      <ul>
+        {groups.filter(({ jump }) => jump).map(({ id, jump }) => (
+          <li><a href={'#' + id}>{jump}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    {groups.map(({ id, title, links }) => (
+      <QuickLinksGrid id={id} title={title} links={links} />
+    ))}
   </div>
 </Layout>

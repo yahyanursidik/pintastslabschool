@@ -1,23 +1,17 @@
-import { z, defineCollection } from 'astro:content';
-import { glob, file } from 'astro/loaders';
-
-import fs from 'fs';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
+import siteSettings from './content/siteSettings/siteSettings.json';
 
 const siteSettingsCollection = defineCollection({
-  loader: () => {
-    try {
-      const data = JSON.parse(fs.readFileSync('src/content/siteSettings/siteSettings.json', 'utf-8'));
-      return [{ id: 'siteSettings', ...data }];
-    } catch (e) {
-      return [];
-    }
-  },
+  loader: () => [{ id: 'siteSettings', ...siteSettings }],
   schema: z.object({
     schoolName: z.string(),
     shortName: z.string(),
     tagline: z.string(),
     description: z.string(),
     logo: z.string().optional(),
+    favicon: z.string().optional(),
     primaryCtaLabel: z.string().optional(),
     primaryCtaUrl: z.string().optional(),
     secondaryCtaLabel: z.string().optional(),
@@ -64,6 +58,7 @@ const programsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     level: z.enum(['preschool', 'elementary']),
+    context: z.string().optional(),
     description: z.string(),
     ctaLabel: z.string().optional(),
     ctaUrl: z.string().optional(),

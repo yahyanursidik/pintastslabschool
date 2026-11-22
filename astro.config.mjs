@@ -10,10 +10,12 @@ import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://pintas.tslabschool.sch.id',
+  devToolbar: { enabled: false },
   vite: {
     plugins: [tailwindcss()]
   },
 
   integrations: [react(), markdoc(), keystatic()],
-  adapter: netlify()
+  adapter: netlify({ imageCDN: false, devFeatures: false })
 });
